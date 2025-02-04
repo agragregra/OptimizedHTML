@@ -1,0 +1,68 @@
+/* IMPORT SECTION */
+
+@import url(fonts.css);
+@import url(config.css);
+
+/* TAILWIND OPTIONAL: */
+/* @import 'tailwindcss'; @variant dark (&:where(.dark, .dark *)); */
+/* @theme { --color-accent: orange; } */
+
+/* PROJECT STYLES */
+
+:root {
+	--mixin-mt {
+		margin-top: var(--gutter);
+	}
+}
+
+.image {
+	/* 1. @apply custom properties with postcss-apply */
+	/* 2. @apply tailwind utilities with tailwindcss */
+	/* @apply --mixin-mt; */
+	/* @apply rounded-3xl; */
+	border-radius: var(--border-radius);
+	margin-bottom: calc(var(--gutter) / 2);
+	max-width: 100%;
+	@media (max-width: 640px) {
+		opacity: .5;
+	}
+}
+
+.accent {
+	color: var(--color-accent);
+	font-weight: bold;
+	.nested {
+		margin-bottom: 10px;
+	}
+}
+
+.modes {
+	margin: var(--gutter) 0;
+	font-size: .875rem;
+}
+
+[data-mode] {
+	display: inline-block;
+	cursor: pointer;
+	border-radius: calc(var(--border-radius) / 2);
+	padding: .4rem .9rem;
+	&.active {
+		background-color: var(--color-accent);
+		color: #fff;
+	}
+	font-size: 1rem;
+}
+
+blockquote {
+	color: var(--secondary-color);
+	font-size: 1rem;
+}
+
+.secondary {
+	color: var(--secondary-color);
+}
+
+.top-line {
+	text-align: center;
+	margin: 1.25rem auto;
+}
