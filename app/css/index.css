@@ -29,7 +29,7 @@
 }
 
 .heading {
-	margin-bottom: 1.1rem;
+	margin-bottom: 1rem;
 }
 
 .accent {
@@ -38,11 +38,6 @@
 	.nested {
 		margin-bottom: 10px;
 	}
-}
-
-.modes {
-	margin: var(--gutter) 0;
-	font-size: .875rem;
 }
 
 [data-mode] {
