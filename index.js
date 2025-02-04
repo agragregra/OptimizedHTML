@@ -118,9 +118,9 @@ async function build() {
 
 chokidar.watch(await glob(['app/css/**/*.css', '!app/css/**/*.min.css'])).on('all', async () => { await styles(); await http.reload('dist/css/app.min.css') })
 chokidar.watch(await glob(['app/*.html', 'app/parts/**/*'])).on('all', async () => { await buildhtml(); await http.reload() })
-chokidar.watch(await [`app/img/`]).on('all', async () => { await cpimg() })
-chokidar.watch(await [`app/fonts/`]).on('all', async () => { await cpfonts() })
 chokidar.watch(await glob(['app/js/**/*.js'])).on('all', async () => { await scripts(); await http.reload() })
+chokidar.watch(await [`app/fonts/`]).on('all', async () => { await cpfonts() })
+chokidar.watch(await [`app/img/`]).on('all', async () => { await cpimg() })
 chokidar.watch(await glob([`app/**/*.{${fileswatch}}`])).on('all', async () => { typeof tailwindcss !== 'undefined' ? (await styles(), await http.reload()) : await http.reload() })
 
 function copyFiles(src, dest) {
