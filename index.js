@@ -1,4 +1,3 @@
-const fileswatch  = 'html,htm,txt,json,md,woff2';
 const imageswatch = 'jpg,jpeg,png,svg,gif,webp';
 const tailwindcss = false;
 const minifyimg   = true;
