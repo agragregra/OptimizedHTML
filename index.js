@@ -24,7 +24,7 @@ import path             from 'path';
 import ssi              from 'ssi';
 
 async function tailwind(watch = false) {
-	const command = `npx tailwindcss -o ./app/css/tailwind.css --minify${watch ? ' --watch' : ''} --content './app/**/*.html'`;
+	const command = `npx tailwindcss -i ./tailwind.css -o ./app/css/tailwind.css --minify${watch ? ' --watch' : ''} --content './app/**/*.html'`;
 	if (!watch) {
 		return new Promise((resolve, reject) => {
 			exec(command, (error, stdout, stderr) => {
