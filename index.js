@@ -1,4 +1,3 @@
-const imageswatch = 'jpg,jpeg,png,svg,gif,webp';
 const tailwindcss = false; // npm i -D @tailwindcss/cli
 const minifyimg   = true;
 
@@ -24,10 +23,9 @@ import fs               from 'fs-extra';
 import path             from 'path';
 import ssi              from 'ssi';
 
-
 async function tailwind(watch = false) {
 	return new Promise((resolve, reject) => {
-		const command = `npx tailwindcss -o ./app/css/tailwind.css --minify${watch ? ' --watch' : ''} --content './dist/**/*.html'`;
+		const command = `npx tailwindcss -o ./app/css/tailwind.css --minify${watch ? ' --watch' : ''} --content './app/**/*.html'`;
 		exec(command, (error, stdout, stderr) => {
 			if (error) {
 				console.error(`❌ Tailwind CSS Error: ${error.message}`);
@@ -41,21 +39,28 @@ async function tailwind(watch = false) {
 }
 
 function noTailwind() {
-	if (!tailwindcss) { fs.rmSync('app/css/tailwind.css', { recursive: true, force: true }); }
+	if (!tailwindcss) {
+		try {
+			fs.rmSync('app/css/tailwind.css', { recursive: true, force: true });
+		} catch (err) {
+			console.error('❌ Failed to remove tailwind.css:', err.message);
+		}
+	}
 }
 
 async function styles() {
 	try {
+		if (tailwindcss) { await tailwind(false); } else { noTailwind() }
 		const result = await postcss([
 			postimport,
 			postapply,
 			postnested,
-			cssnano({ preset: ['default', { discardComments: { removeAll: true } }] }),
+			cssnano({ preset: ['default', { discardComments: { removeAll: true } }] })
 		]).process(fs.readFileSync('app/css/index.css'), {
 			from: 'app/css/index.css',
 			to: 'dist/css/index.css',
 			map: false
-		}); noTailwind();
+		});
 		fs.ensureDirSync('dist/css');
 		fs.writeFileSync('dist/css/index.css', result.css);
 		console.log('✅ CSS processed successfully.');
@@ -70,7 +75,7 @@ async function scripts() {
 			input: 'app/js/app.js',
 			plugins: [resolve(), terser()],
 		});
-		if (!fs.existsSync('dist/js')) fs.mkdirSync('dist/js', { recursive: true });
+		fs.mkdirSync('dist/js', { recursive: true });
 		await bundle.write({ file: 'dist/js/app.js' });
 		console.log('✅ Scripts compiled successfully!');
 
@@ -95,28 +100,12 @@ async function buildhtml() {
 	} catch (err) {
 		console.error('❌ SSI Compilation Error:', err.message || err);
 	}
-	if (native) { addModuleTypeToScripts('dist') }
-}
-
-function addModuleTypeToScripts(directory) {
-	fs.readdirSync(directory).forEach(file => {
-		const filePath = path.join(directory, file);
-		const stats = fs.statSync(filePath);
-		if (stats.isDirectory()) {
-			addModuleTypeToScripts(filePath);
-		} else if (file.endsWith('.html')) {
-			let content = fs.readFileSync(filePath, 'utf8');
-			content = content.replace(/<script(?![^>]*type=["']module["'])/g, '<script type="module"');
-			fs.writeFileSync(filePath, content, 'utf8');
-			console.log(`Updated: ${filePath}`);
-		}
-	});
 }
 
 async function buildimg() {
 	if (!minifyimg) return copyFiles('app/img', 'dist/img');
 	try {
-		const files = await imagemin([`app/img/**/*.{${imageswatch}}`], {
+		const files = await imagemin([`app/img/**/*`], {
 			plugins: [
 				imageminJpegtran({ progressive: true }),
 				imageminMozjpeg({ quality: 90 }),
@@ -125,7 +114,8 @@ async function buildimg() {
 			]
 		});
 		for (const v of files) {
-			const destPath = path.join('dist/img', path.basename(v.sourcePath));
+			const relativePath = path.relative('app/img', v.sourcePath);
+			const destPath = path.join('dist/img', relativePath);
 			fs.ensureDirSync(path.dirname(destPath));
 			fs.writeFileSync(destPath, v.data);
 		}
@@ -143,7 +133,6 @@ function copyFiles(src, dest) {
 async function build() {
 	fs.rmSync('dist/', { recursive: true, force: true });
 	await buildhtml();
-	if (tailwindcss) { await tailwind(false); } else { noTailwind() }
 	await styles();
 	await scripts();
 	await buildimg();
@@ -174,10 +163,10 @@ async function server() {
 }
 
 async function watch() {
-	chokidar.watch(await glob(['app/js/**/*.js', 'app/libs/**/*.js'])).on('all', async () => { http.reload('dist/js/app.js'); });
-	chokidar.watch(await glob(['app/css/**/*.css'])).on('all', async () => { http.reload('dist/css/index.css'); });
-	chokidar.watch(await glob(['app/*.html', 'app/parts/**/*'])).on('all', async () => { http.reload(); });
-	chokidar.watch(await glob(['app/fonts/**/*', 'app/img/**/*'])).on('all', async () => { http.reload(); });
+	chokidar.watch(glob.sync(['app/js/**/*.js', 'app/libs/**/*.js'])).on('all', async () => { http.reload('dist/js/app.js'); });
+	chokidar.watch(glob.sync(['app/css/**/*.css'])).on('all', async () => { http.reload('dist/css/index.css'); });
+	chokidar.watch(glob.sync(['app/*.html', 'app/parts/**/*'])).on('all', async () => { http.reload(); });
+	chokidar.watch(glob.sync(['app/fonts/**/*', 'app/img/**/*'])).on('all', async () => { http.reload(); });
 }
 
 const copyDevAssets = (sourceDir, destDir) => {
@@ -212,11 +201,8 @@ const copyDevAssets = (sourceDir, destDir) => {
 							return '../'.repeat(levels) + 'node_modules';
 						});
 						if (updatedData !== data) {
-							const modulePattern = /node_modules\/([a-zA-Z0-9-_]+)/g;
-							let match;
-							while ((match = modulePattern.exec(updatedData)) !== null) {
-								copyNodeModules(match[1]);
-							}
+							const matches = [...updatedData.matchAll(/node_modules\/([a-zA-Z0-9-_]+)/g)];
+							matches.forEach(match => copyNodeModules(match[1]));
 							fs.writeFile(destFilePath, updatedData, 'utf8', (err) => {
 								if (err) return console.error('❌ Error writing file:', err);
 								console.log(`✅ File updated and copied: ${destFilePath}`);
