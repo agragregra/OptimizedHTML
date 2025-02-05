@@ -4,3 +4,7 @@
 @theme {
 	--color-accent: orange;
 }
+
+.image {
+	@apply mb-8;
+}

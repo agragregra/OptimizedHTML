@@ -14,10 +14,8 @@
 }
 
 .image {
-	/* 1. @apply custom properties with postcss-apply (for the future) */
-	/* 2. @apply tailwind utilities with tailwindcss */
+	/* @apply custom properties (for the future) */
 	/* @apply --mixin-mt; */
-	/* @apply rounded-3xl; */
 	border-radius: var(--border-radius);
 	max-width: 100%;
 	@media (max-width: 640px) {
