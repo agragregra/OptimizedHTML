@@ -1,6 +1,6 @@
 const fileswatch  = 'html,htm,txt,json,md,woff2';
 const imageswatch = 'jpg,jpeg,png,svg,gif,webp';
-const tailwindcss = true;
+const tailwindcss = false;
 const minifyimg   = true;
 
 import postcss          from 'postcss';
