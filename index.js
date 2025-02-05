@@ -1,5 +1,5 @@
 const imageswatch = 'jpg,jpeg,png,svg,gif,webp';
-const tailwindcss = false;
+const tailwindcss = false; // npm i -D @tailwindcss/cli
 const minifyimg   = true;
 
 import postcss          from 'postcss';
@@ -26,13 +26,17 @@ import ssi              from 'ssi';
 
 
 async function tailwind(watch = false) {
-	const command = `npx tailwindcss -o ./app/css/tailwind.css --minify${watch ? ' --watch' : ''} --content './dist/**/*.html'`;
-	exec(command, (error, stdout, stderr) => {
-		if (error) {
-			console.error(`❌ Tailwind CSS Error: ${error.message}`);
-			return;
-		}
-		console.log(`✅ Tailwind CSS compiled successfully.`);
+	return new Promise((resolve, reject) => {
+		const command = `npx tailwindcss -o ./app/css/tailwind.css --minify${watch ? ' --watch' : ''} --content './dist/**/*.html'`;
+		exec(command, (error, stdout, stderr) => {
+			if (error) {
+				console.error(`❌ Tailwind CSS Error: ${error.message}`);
+				reject(error);
+				return;
+			}
+			console.log(`✅ Tailwind CSS compiled successfully.`);
+			resolve();
+		});
 	});
 }
 
@@ -44,8 +48,9 @@ async function styles() {
 	try {
 		const result = await postcss([
 			postimport,
+			postapply,
+			postnested,
 			cssnano({ preset: ['default', { discardComments: { removeAll: true } }] }),
-			...(tailwindcss ? [] : [postapply, postnested])
 		]).process(fs.readFileSync('app/css/index.css'), {
 			from: 'app/css/index.css',
 			to: 'dist/css/index.css',
@@ -138,7 +143,7 @@ function copyFiles(src, dest) {
 async function build() {
 	fs.rmSync('dist/', { recursive: true, force: true });
 	await buildhtml();
-	if (tailwindcss) { await tailwind(false); }
+	if (tailwindcss) { await tailwind(false); } else { noTailwind() }
 	await styles();
 	await scripts();
 	await buildimg();
@@ -149,7 +154,7 @@ async function build() {
 async function native() {
 	fs.rmSync('dist/', { recursive: true, force: true });
 	await buildhtml();
-	if (tailwindcss) { await tailwind(false); }
+	if (tailwindcss) { await tailwind(false); } else { noTailwind() }
 	copyDevAssets('app/css', 'dist/css');
 	copyDevAssets('app/js', 'dist/js');
 	copyFiles('app/fonts', 'dist/fonts');
@@ -158,7 +163,7 @@ async function native() {
 }
 
 async function server() {
-	tailwind(true);
+	if (tailwindcss) { await tailwind(false); } else { noTailwind() }
 	http.init({
 		server: { baseDir: 'app/', routes: { '/node_modules': path.resolve(__dirname, 'node_modules') } },
 		middleware: bssi({ baseDir: 'app/', ext: '.html' }),
@@ -201,7 +206,8 @@ const copyDevAssets = (sourceDir, destDir) => {
 					if (!fs.existsSync(destDirPath)) fs.mkdirSync(destDirPath, { recursive: true });
 					fs.readFile(sourceFilePath, 'utf8', (err, data) => {
 						if (err) return console.error('❌ Error reading file:', err);
-						const updatedData = data.replace(/(\.\.\/)+node_modules/g, (match) => {
+						const cleanedData = data.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*/g, '');
+						const updatedData = cleanedData.replace(/(\.\.\/)+node_modules/g, (match) => {
 							const levels = match.split('/').length - 2;
 							return '../'.repeat(levels) + 'node_modules';
 						});
