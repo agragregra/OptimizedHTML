@@ -24,18 +24,20 @@ import path             from 'path';
 import ssi              from 'ssi';
 
 async function tailwind(watch = false) {
-	return new Promise((resolve, reject) => {
-		const command = `npx tailwindcss -o ./app/css/tailwind.css --minify${watch ? ' --watch' : ''} --content './app/**/*.html'`;
-		exec(command, (error, stdout, stderr) => {
-			if (error) {
-				console.error(`❌ Tailwind CSS Error: ${error.message}`);
-				reject(error);
-				return;
-			}
-			console.log(`✅ Tailwind CSS compiled successfully.`);
-			resolve();
+	const command = `npx tailwindcss -o ./app/css/tailwind.css --minify${watch ? ' --watch' : ''} --content './app/**/*.html'`;
+	if (!watch) {
+		return new Promise((resolve, reject) => {
+			exec(command, (error, stdout, stderr) => {
+				if (error) {
+					console.error(`❌ Tailwind CSS Error: ${error.message}`);
+					reject(error);
+					return;
+				}
+				console.log(`✅ Tailwind CSS compiled successfully.`);
+				resolve();
+			});
 		});
-	});
+	} else { exec(command); }
 }
 
 function noTailwind() {
@@ -152,7 +154,7 @@ async function native() {
 }
 
 async function server() {
-	if (tailwindcss) { await tailwind(false); } else { noTailwind() }
+	if (tailwindcss) { await tailwind(true); } else { noTailwind() }
 	http.init({
 		server: { baseDir: 'app/', routes: { '/node_modules': path.resolve(__dirname, 'node_modules') } },
 		middleware: bssi({ baseDir: 'app/', ext: '.html' }),
