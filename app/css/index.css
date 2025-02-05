@@ -2,11 +2,8 @@
 
 @import url(reboot.css);
 @import url(fonts.css);
+@import url(libs.css);
 @import url(config.css);
-
-/* TAILWIND OPTIONAL: */
-/* @import 'tailwindcss'; @variant dark (&:where(.dark, .dark *)); */
-/* @theme { --color-accent: orange; } */
 
 /* PROJECT STYLES */
 
@@ -17,7 +14,7 @@
 }
 
 .image {
-	/* 1. @apply custom properties with postcss-apply */
+	/* 1. @apply custom properties with postcss-apply (for the future) */
 	/* 2. @apply tailwind utilities with tailwindcss */
 	/* @apply --mixin-mt; */
 	/* @apply rounded-3xl; */
@@ -30,6 +27,7 @@
 
 .heading {
 	margin-bottom: 1rem;
+	margin-top: 1.75rem;
 }
 
 .accent {

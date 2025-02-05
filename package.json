@@ -5,14 +5,17 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"dev": "node -e \"import('./index.js').then(module => module.startServer())\"",
-		"build": "node -e \"import('./index.js').then(module => module.buildAll())\""
+		"dev": "node -e \"import('./index.js').then(module => module.server())\"",
+		"build": "node -e \"import('./index.js').then(module => module.build())\"",
+		"native": "node -e \"import('./index.js').then(module => module.native())\""
 	},
 	"author": "WebDesign Master",
 	"license": "ISC",
 	"devDependencies": {
+		"@rollup/plugin-node-resolve": "^16.0.0",
 		"@rollup/plugin-terser": "^0.4.4",
 		"browser-sync": "^3.0.3",
+		"browsersync-ssi": "^0.2.4",
 		"chokidar": "^4.0.3",
 		"cssnano": "^7.0.6",
 		"glob": "^11.0.1",
@@ -25,7 +28,7 @@
 		"postcss-apply": "^0.12.0",
 		"postcss-import": "^16.1.0",
 		"postcss-nested": "^7.0.2",
-		"rollup": "^4.34.2",
+		"rollup": "^4.34.3",
 		"ssi": "^0.3.0"
 	}
 }

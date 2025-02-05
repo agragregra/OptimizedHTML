@@ -11,3 +11,5 @@ git clone https://github.com/agragregra/oh .; rm -rf trunk .gitignore readme.md 
 > npm run dev
 
 > npm run build
+
+> npm run native
