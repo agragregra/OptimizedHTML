@@ -5,7 +5,7 @@
 	--color-accent: orange;
 }
 
-html body {
+body {
 	@apply dark:bg-gray-900 dark:text-white;
 }
 

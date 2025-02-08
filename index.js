@@ -165,11 +165,11 @@ async function server() {
 }
 
 async function watch() {
-	chokidar.watch(glob.sync(['app/js/**/*.js', 'app/libs/**/*.js'])).on('all', async () => { http.reload('dist/js/app.js'); });
-	chokidar.watch(glob.sync(['app/css/**/*.css'])).on('all', async () => { http.reload('dist/css/index.css'); });
-	chokidar.watch(glob.sync(['tailwind.css'])).on('all', async () => { await tailwind(false), http.reload('dist/css/index.css'); });
-	chokidar.watch(glob.sync(['app/*.html', 'app/parts/**/*'])).on('all', async () => { http.reload(); });
-	chokidar.watch(glob.sync(['app/fonts/**/*', 'app/img/**/*'])).on('all', async () => { http.reload(); });
+	chokidar.watch(glob.sync(['app/js/**/*.js', 'app/libs/**/*.js'])).on('all', async () => { http.reload('dist/js/app.js') });
+	chokidar.watch(glob.sync(['app/css/**/*.css'])).on('all', async () => { http.reload('dist/css/index.css') });
+	chokidar.watch(glob.sync(['app/*.html', 'app/parts/**/*'])).on('all', async () => { http.reload() });
+	chokidar.watch(glob.sync(['app/fonts/**/*', 'app/img/**/*'])).on('all', async () => { http.reload() });
+	if (tailwindcss) { chokidar.watch(glob.sync(['tailwind.css'])).on('all', async () => { await tailwind(false), http.reload('dist/css/index.css') }) };
 }
 
 const copyDevAssets = (sourceDir, destDir) => {
