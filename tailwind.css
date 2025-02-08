@@ -5,6 +5,10 @@
 	--color-accent: orange;
 }
 
+html body {
+	@apply dark:bg-gray-900 dark:text-white;
+}
+
 .image {
 	@apply mb-8;
 }
