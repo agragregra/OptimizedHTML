@@ -6,46 +6,46 @@
 button:not(:disabled) { cursor: pointer }
 
 @media (prefers-reduced-motion:no-preference) {
-	:root { scroll-behavior: smooth }
+  :root { scroll-behavior: smooth }
 }
 
 body {
-	margin: 0;
-	-webkit-text-size-adjust: 100%;
-	-webkit-tap-highlight-color: transparent
+  margin: 0;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent
 }
 
 hr {
-	margin: 1rem 0;
-	color: inherit;
-	border: 0;
-	border-top: 1px solid;
-	opacity: .25
+  margin: 1rem 0;
+  color: inherit;
+  border: 0;
+  border-top: 1px solid;
+  opacity: .25
 }
 
 h1, h2, h3, h4, h5, h6 {
-	margin-bottom: .5rem;
-	line-height: 1.2
+  margin-bottom: .5rem;
+  line-height: 1.2
 }
 
 h1 { font-size: calc(1.375rem + 1.5vw) }
 @media (min-width:1200px) {
-	h1 { font-size: 2.5rem }
+  h1 { font-size: 2.5rem }
 }
 
 h2 { font-size: calc(1.325rem + .9vw) }
 @media (min-width:1200px) {
-	h2 { font-size: 2rem }
+  h2 { font-size: 2rem }
 }
 
 h3 { font-size: calc(1.3rem + .6vw) }
 @media (min-width:1200px) {
-	h3 { font-size: 1.75rem }
+  h3 { font-size: 1.75rem }
 }
 
 h4 { font-size: calc(1.275rem + .3vw) }
 @media (min-width:1200px) {
-	h4 { font-size: 1.5rem }
+  h4 { font-size: 1.5rem }
 }
 
 h5 { font-size: 1.25rem }
@@ -53,21 +53,21 @@ h5 { font-size: 1.25rem }
 h6 { font-size: 1rem }
 
 p {
-	margin-top: 0;
-	margin-bottom: 1rem
+  margin-top: 0;
+  margin-bottom: 1rem
 }
 
 address {
-	margin-bottom: 1rem;
-	font-style: normal;
-	line-height: inherit
+  margin-bottom: 1rem;
+  font-style: normal;
+  line-height: inherit
 }
 
 ol, ul { padding-left: 2rem }
 
 dl, ol, ul {
-	margin-top: 0;
-	margin-bottom: 1rem
+  margin-top: 0;
+  margin-bottom: 1rem
 }
 
 ol ol, ol ul, ul ol, ul ul { margin-bottom: 0 }
@@ -75,8 +75,8 @@ ol ol, ol ul, ul ol, ul ul { margin-bottom: 0 }
 dt { font-weight: 700 }
 
 dd {
-	margin-bottom: .5rem;
-	margin-left: 0
+  margin-bottom: .5rem;
+  margin-left: 0
 }
 
 blockquote { margin: 0 0 1rem }
@@ -86,10 +86,10 @@ small { font-size: .875em }
 mark { padding: .1875em }
 
 sub, sup {
-	position: relative;
-	font-size: .75em;
-	line-height: 0;
-	vertical-align: baseline
+  position: relative;
+  font-size: .75em;
+  line-height: 0;
+  vertical-align: baseline
 }
 
 sub { bottom: -.25em }
@@ -97,9 +97,9 @@ sub { bottom: -.25em }
 sup { top: -.5em }
 
 pre {
-	margin-bottom: 1rem;
-	overflow: auto;
-	font-size: .875em
+  margin-bottom: 1rem;
+  overflow: auto;
+  font-size: .875em
 }
 
 pre code { word-break: normal }
@@ -113,17 +113,17 @@ img, svg { vertical-align: middle }
 table { border-collapse: collapse }
 
 caption {
-	padding-top: .5rem;
-	padding-bottom: .5rem;
-	text-align: left
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  text-align: left
 }
 
 th { text-align: inherit }
 
 tbody, td, tfoot, th, thead, tr {
-	border-color: inherit;
-	border-style: solid;
-	border-width: 0
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0
 }
 
 label { display: inline-block }
@@ -133,10 +133,10 @@ button { border-radius: 0 }
 button:focus:not(:focus-visible) { outline: 0 }
 
 button, input, optgroup, select, textarea {
-	margin: 0;
-	font-family: inherit;
-	font-size: inherit;
-	line-height: inherit
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit
 }
 
 select:disabled { opacity: 1 }
@@ -146,30 +146,30 @@ select:disabled { opacity: 1 }
 [type=button], [type=reset], [type=submit], button { -webkit-appearance: button }
 
 ::-moz-focus-inner {
-	padding: 0;
-	border-style: none
+  padding: 0;
+  border-style: none
 }
 
 textarea { resize: vertical }
 
 fieldset {
-	min-width: 0;
-	padding: 0;
-	margin: 0;
-	border: 0
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0
 }
 
 legend {
-	float: left;
-	width: 100%;
-	padding: 0;
-	margin-bottom: .5rem;
-	font-size: calc(1.275rem + .3vw);
-	line-height: inherit
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin-bottom: .5rem;
+  font-size: calc(1.275rem + .3vw);
+  line-height: inherit
 }
 
 @media (min-width:1200px) {
-	legend { font-size: 1.5rem }
+  legend { font-size: 1.5rem }
 }
 
 legend + * { clear: left }
@@ -185,8 +185,8 @@ legend + * { clear: left }
 ::-webkit-inner-spin-button { height: auto }
 
 [type=search] {
-	-webkit-appearance: textfield;
-	outline-offset: -2px
+  -webkit-appearance: textfield;
+  outline-offset: -2px
 }
 
 ::-webkit-search-decoration { -webkit-appearance: none }
@@ -195,15 +195,15 @@ legend + * { clear: left }
 
 ::-webkit-file-upload-button,
 ::file-selector-button {
-	font: inherit;
-	-webkit-appearance: button
+  font: inherit;
+  -webkit-appearance: button
 }
 
 iframe { border: 0 }
 
 summary {
-	display: list-item;
-	cursor: pointer
+  display: list-item;
+  cursor: pointer
 }
 
 [hidden] { display: none !important }

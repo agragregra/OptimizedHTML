@@ -2,29 +2,29 @@
 
 :root {
 
-	color-scheme: light dark;
+  color-scheme: light dark;
 
-	--font-base: 16px;
-	--font-family: roboto-st, sans-serif;
-	--border-radius: .375rem;
-	--line-height: 1.65;
-	--gutter: 1.25rem;
+  --font-base: 16px;
+  --font-family: roboto-st, sans-serif;
+  --border-radius: .375rem;
+  --line-height: 1.65;
+  --gutter: 1.25rem;
 
-	--color-accent: orange;
-	--color-light: #dee2e6;
-	--color-dark: #212529;
+  --color-accent: orange;
+  --color-light: #dee2e6;
+  --color-dark: #212529;
 
-	--body-bg: light-dark(var(--color-light), var(--color-dark));
-	--body-color: light-dark(var(--color-dark), var(--color-light));
+  --body-bg: light-dark(var(--color-light), var(--color-dark));
+  --body-color: light-dark(var(--color-dark), var(--color-light));
 
-	--color-heading-light: #dee2e6;
-	--color-heading-dark: #212529;
-	--heading-color: light-dark(var(--color-heading-dark), var(--color-heading-light));
+  --color-heading-light: #dee2e6;
+  --color-heading-dark: #212529;
+  --heading-color: light-dark(var(--color-heading-dark), var(--color-heading-light));
 
-	--secondary-color: light-dark(
-		hsl(from var(--color-light) h s calc(l - 45)),
-		hsl(from var(--color-dark) h s calc(l - -45))
-	);
+  --secondary-color: light-dark(
+    hsl(from var(--color-light) h s calc(l - 45)),
+    hsl(from var(--color-dark) h s calc(l - -45))
+  );
 
 }
 
@@ -38,16 +38,16 @@ input:required:valid, textarea:required:valid { border-color: green; }
 ::placeholder { color: #666; }
 
 body {
-	font-family: var(--font-family);
-	line-height: var(--line-height);
-	background: var(--body-bg);
-	color: var(--body-color);
-	min-width: 320px;
-	position: relative;
-	overflow-x: hidden;
+  font-family: var(--font-family);
+  line-height: var(--line-height);
+  background: var(--body-bg);
+  color: var(--body-color);
+  min-width: 320px;
+  position: relative;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	color: var(--heading-color);
-	font-weight: 600;
+  color: var(--heading-color);
+  font-weight: 600;
 }

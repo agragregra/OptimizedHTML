@@ -1,34 +1,34 @@
 {
-	"name": "optimizedhtml",
-	"version": "1.0.0",
-	"description": "OptimizedHTML - Lightweight Web Development Starter",
-	"main": "index.js",
-	"type": "module",
-	"scripts": {
-		"dev": "node -e \"import('./index.js').then(module => module.server())\"",
-		"build": "node -e \"import('./index.js').then(module => module.build())\"",
-		"native": "node -e \"import('./index.js').then(module => module.native())\""
-	},
-	"author": "WebDesign Master",
-	"license": "ISC",
-	"devDependencies": {
-		"@rollup/plugin-node-resolve": "^16.0.0",
-		"@rollup/plugin-terser": "^0.4.4",
-		"browser-sync": "^3.0.3",
-		"browsersync-ssi": "^0.2.4",
-		"chokidar": "^4.0.3",
-		"cssnano": "^7.0.6",
-		"glob": "^11.0.1",
-		"imagemin": "^9.0.0",
-		"imagemin-jpegtran": "^8.0.0",
-		"imagemin-mozjpeg": "^10.0.0",
-		"imagemin-pngquant": "^10.0.0",
-		"imagemin-svgo": "^11.0.1",
-		"postcss": "^8.5.1",
-		"postcss-apply": "^0.12.0",
-		"postcss-import": "^16.1.0",
-		"postcss-nested": "^7.0.2",
-		"rollup": "^4.34.6",
-		"ssi": "^0.3.0"
-	}
+  "name": "optimizedhtml",
+  "version": "1.0.0",
+  "description": "OptimizedHTML - Lightweight Web Development Starter",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node -e \"import('./index.js').then(module => module.server())\"",
+    "build": "node -e \"import('./index.js').then(module => module.build())\"",
+    "native": "node -e \"import('./index.js').then(module => module.native())\""
+  },
+  "author": "WebDesign Master",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "browser-sync": "^3.0.3",
+    "browsersync-ssi": "^0.2.4",
+    "chokidar": "^4.0.3",
+    "cssnano": "^7.0.6",
+    "glob": "^11.0.1",
+    "imagemin": "^9.0.0",
+    "imagemin-jpegtran": "^8.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-svgo": "^11.0.1",
+    "postcss": "^8.5.1",
+    "postcss-apply": "^0.12.0",
+    "postcss-import": "^16.1.0",
+    "postcss-nested": "^7.0.2",
+    "rollup": "^4.34.6",
+    "ssi": "^0.3.0"
+  }
 }
