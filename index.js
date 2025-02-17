@@ -7,7 +7,6 @@ import postnested       from 'postcss-nested';
 import postapply        from 'postcss-apply';
 import cssnano          from 'cssnano';
 import imagemin         from 'imagemin';
-import imageminJpegtran from 'imagemin-jpegtran';
 import imageminMozjpeg  from 'imagemin-mozjpeg';
 import imageminPngquant from 'imagemin-pngquant';
 import imageminSvgo     from 'imagemin-svgo';
@@ -109,7 +108,6 @@ async function buildimg() {
   try {
     const files = await imagemin([`app/img/**/*`], {
       plugins: [
-        imageminJpegtran({ progressive: true }),
         imageminMozjpeg({ quality: 90 }),
         imageminPngquant({ quality: [0.6, 0.8] }),
         imageminSvgo()
