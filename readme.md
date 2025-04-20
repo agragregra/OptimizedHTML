@@ -1,9 +1,9 @@
 # OptimizedHTML
 Lightweight Web Development Starter
 
-![Simple-Starter](https://raw.githubusercontent.com/webdesign-masteru/OptimizedHTML/master/app/img/preview.jpg)
+![Simple-Starter](https://raw.githubusercontent.com/agragregra/OptimizedHTML/master/app/img/preview.jpg)
 ```
-git clone https://github.com/webdesign-masteru/OptimizedHTML .; rm -rf trunk .gitignore readme.md .git
+git clone https://github.com/agragregra/OptimizedHTML .; rm -rf trunk .gitignore readme.md .git
 ```
 
 > npm i
